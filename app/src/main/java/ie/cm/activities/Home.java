@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import ie.cm.R;
+import ie.cm.fragments.CoffeeFragment;
+import ie.cm.models.Coffee;
 
 public class Home extends Base {
 
@@ -23,9 +25,7 @@ public class Home extends Base {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.drawable.ic_launcher1);
-
-        recentList = (TextView) findViewById(R.id.recentlyAddedListEmpty);
-
+     //   recentList = (TextView) findViewById(R.id.recentlyAddedListEmpty);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +39,7 @@ public class Home extends Base {
                         }).show();
             }
         });
+      //  setupCoffees();
     }
 
     public void add(View v)
@@ -47,27 +48,21 @@ public class Home extends Base {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_help) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
-        if(!coffeeList.isEmpty())
-            recentList.setText(coffeeList.toString());
-        else
-            recentList.setText(getString(R.string.recentlyViewedListEmptyMessage));
+      //  if(!coffeeList.isEmpty())
+      //      recentList.setText(coffeeList.toString());
+       // else
+       //     recentList.setText(getString(R.string.recentlyViewedListEmptyMessage));
+
+        coffeeFragment = CoffeeFragment.newInstance(); //get a new Fragment instance
+        getFragmentManager().beginTransaction().add(R.id.fragment_layout, coffeeFragment).commit();
     }
+
+   // public void setupCoffees(){
+   //     coffeeList.add(new Coffee("Standard Black", "Some Shop",2.5,1.99,false));
+   //     coffeeList.add(new Coffee("Regular Joe", "Joe's Place",3.5,2.99,true));
+   //     coffeeList.add(new Coffee("Espresso", "Ardkeen Stores",4.5,1.49,true));
+   // }
 }
